@@ -9,7 +9,7 @@ const Header = (props) => {
 
 const Content = (props) => {
   console.log('Content', props)   
-  //excercises 1 hace referencia al Content de App, no al objeto principal
+  //excercises 1 hace referencia al Content de App, no al objeto principalaaaa
   return (
     <div>
       <Part part1={props.part1} exercises1={props.exercises1}/>
