@@ -61,6 +61,8 @@ const App = () => {
     ]
   }
 
+  //Recordar que aca solo mandas con variables los objetos, variables, arrays
+  //Ejemplo: titanic={course.name} o lo que sea, pero haciendo referencia a la variable o constante original
   return (
     <div>
       <Header course={course.name} />
