@@ -43,6 +43,8 @@ const App = () => {
     setCounter(0)
   }
 
+
+
   return (
     <div>
       <Display counter={counter} />
