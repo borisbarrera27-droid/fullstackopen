@@ -10,37 +10,44 @@ import { useState } from 'react'
     “Crea un estado llamado counter, que empieza en 0, y dame una función setCounter para cambiarlo.”
   */
 
-const Display = (props) => {
+const History = (props) => {
+  if (props.allClicks.length === 0) {
+    return (
+      <div>
+        the app is used by pressing the buttons
+      </div>
+    )
+  }
+
   return (
-    <div>{props.counter}</div>
+    <div>
+      button press history: {props.allClicks.join(' ')}
+    </div>
   )
 }
 
 const Button = (props) => {
+  console.log(props)
+  const { handleClick, text } = props
   return (
-    <button onClick={props.onClick}>
-      {props.text}
+    <button onClick={handleClick}>
+      {text}
     </button>
   )
 }
 
 const App = () => {
-  const [clicks, setClicks] = useState({
-    left: 0, right: 0
-  })
+  const [value, setValue] = useState(10)
 
-const handleLeftClick = () =>
-  setClicks({ ...clicks, left: clicks.left + 1 })
-
-const handleRightClick = () =>
-  setClicks({ ...clicks, right: clicks.right + 1 })
+  const hello = () => {
+    const handler = () => console.log('hello world')
+    return handler
+  }
 
   return (
     <div>
-      {clicks.left}
-      <button onClick={handleLeftClick}>left</button>
-      <button onClick={handleRightClick}>right</button>
-      {clicks.right}
+      {value}
+      <button onClick={hello()}>button</button>
     </div>
   )
 }
