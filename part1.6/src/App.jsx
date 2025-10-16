@@ -10,44 +10,58 @@ import { useState } from 'react'
     “Crea un estado llamado counter, que empieza en 0, y dame una función setCounter para cambiarlo.”
   */
 
-const History = (props) => {
-  if (props.allClicks.length === 0) {
-    return (
-      <div>
-        the app is used by pressing the buttons
-      </div>
-    )
-  }
+const Button = (props) => (
+  <button onClick={props.handleClick}>
+    {props.text}
+  </button>
+)
 
-  return (
+    const Display = (props) => (
     <div>
-      button press history: {props.allClicks.join(' ')}
+      <h1>statistics</h1>
+      <p>good: {props.good}</p>
+      <p>neutral: {props.neutral}</p>
+      <p>bad: {props.bad}</p>
+      <p>all: {props.good+props.neutral+props.bad}</p>
+      <p>average: {(props.good-props.bad)/(props.good+props.neutral+props.bad)}</p>
+      <p>positive: {(props.good*100)/(props.good+props.neutral+props.bad)} %</p>      
     </div>
-  )
-}
 
-const Button = (props) => {
-  console.log(props)
-  const { handleClick, text } = props
-  return (
-    <button onClick={handleClick}>
-      {text}
-    </button>
   )
-}
 
 const App = () => {
-  const [value, setValue] = useState(10)
+  //const [value, setValue] = useState(10)
 
-  const hello = () => {
-    const handler = () => console.log('hello world')
-    return handler
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)  
+
+  /*
+  const setToValue = (newValue) => {
+    console.log('value now', newValue)
+    setValue(newValue)
   }
+*/
+  const setToGood = (good) => {
+    console.log('value for good now:', good)    
+    setGood(good)
+  }
+  const setToNeutral = (neutral) => {
+    console.log('value for neutral now:', neutral)        
+    setNeutral(neutral)
+  }  
+  const setToBad = (bad) => {
+    console.log('value for bad now:', bad)        
+    setBad(bad)
+  }  
 
   return (
     <div>
-      {value}
-      <button onClick={hello()}>button</button>
+      <h1>give feedback</h1>
+      <Button handleClick={() => setToGood(good+1)} text="good" />
+      <Button handleClick={() => setToNeutral(neutral+1)} text="neutral" />
+      <Button handleClick={() => setToBad(bad+1)} text="bad" />
+      <Display good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
