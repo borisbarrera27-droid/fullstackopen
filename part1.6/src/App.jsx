@@ -16,44 +16,75 @@ const Button = (props) => (
   </button>
 )
 
-    const Display = (props) => (
-    <div>
-      <h1>statistics</h1>
-      <p>good: {props.good}</p>
-      <p>neutral: {props.neutral}</p>
-      <p>bad: {props.bad}</p>
-      <p>all: {props.good+props.neutral+props.bad}</p>
-      <p>average: {(props.good-props.bad)/(props.good+props.neutral+props.bad)}</p>
-      <p>positive: {(props.good*100)/(props.good+props.neutral+props.bad)} %</p>      
-    </div>
 
+
+//Es curioso saber que un componenten con =>{} si acepta condiciones y el =>() no acepta
+const Statistics = (props) => {
+
+  if(props.good != 0 || props.neutral != 0 || props.bad != 0){
+    return (
+    <div>
+
+      <StatisticLine texte="good" value ={props.good} />
+      <StatisticLine texte="neutral" value ={props.neutral} />
+      <StatisticLine texte="bad" value ={props.bad} />
+      <StatisticLine texte="all" value ={props.all} />
+      <StatisticLine texte="average" value ={props.ave/props.all} />     
+      <StatisticLine texte="positive" value ={(props.good*100)/(props.all)+'%'} />  
+  
+    </div>      
+    )
+  }
+
+  return (
+    <p>No feedback given</p>
   )
 
-const App = () => {
-  //const [value, setValue] = useState(10)
+}
 
+const StatisticLine = (props) => {
+  //Recordemos que texte y value son los valores madre que se pasan a este componente para mostrar
+  return (
+    <div>
+      <table>
+      <tbody>
+      <tr>
+          <th>{props.texte}</th>
+          <td>{props.value}</td>
+      </tr>
+      </tbody>
+      </table>
+    </div>
+  )
+}
+
+
+const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)  
+  const [all, setAll] = useState(0)
+  const [ave, setAve] = useState(0) 
 
-  /*
-  const setToValue = (newValue) => {
-    console.log('value now', newValue)
-    setValue(newValue)
-  }
-*/
+ 
   const setToGood = (good) => {
     console.log('value for good now:', good)    
     setGood(good)
+    setAll(all+1)
+    setAve(ave+1)
   }
   const setToNeutral = (neutral) => {
     console.log('value for neutral now:', neutral)        
     setNeutral(neutral)
+    setAll(all+1)    
   }  
   const setToBad = (bad) => {
     console.log('value for bad now:', bad)        
     setBad(bad)
+    setAll(all+1)
+    setAve(ave-1)    
   }  
+
 
   return (
     <div>
@@ -61,7 +92,10 @@ const App = () => {
       <Button handleClick={() => setToGood(good+1)} text="good" />
       <Button handleClick={() => setToNeutral(neutral+1)} text="neutral" />
       <Button handleClick={() => setToBad(bad+1)} text="bad" />
-      <Display good={good} neutral={neutral} bad={bad} />
+      <h1>statistics</h1>
+      <Statistics good={good} neutral={neutral} bad={bad} all={all} ave={ave}/>
+
+
     </div>
   )
 }
