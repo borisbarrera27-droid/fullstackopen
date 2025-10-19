@@ -25,13 +25,16 @@ const Statistics = (props) => {
     return (
     <div>
 
+      <table>
+      <tbody>
       <StatisticLine texte="good" value ={props.good} />
       <StatisticLine texte="neutral" value ={props.neutral} />
       <StatisticLine texte="bad" value ={props.bad} />
       <StatisticLine texte="all" value ={props.all} />
       <StatisticLine texte="average" value ={props.ave/props.all} />     
       <StatisticLine texte="positive" value ={(props.good*100)/(props.all)+'%'} />  
-  
+      </tbody>
+      </table>
     </div>      
     )
   }
@@ -45,16 +48,14 @@ const Statistics = (props) => {
 const StatisticLine = (props) => {
   //Recordemos que texte y value son los valores madre que se pasan a este componente para mostrar
   return (
-    <div>
-      <table>
-      <tbody>
+    <>
+
       <tr>
           <th>{props.texte}</th>
           <td>{props.value}</td>
       </tr>
-      </tbody>
-      </table>
-    </div>
+
+    </>
   )
 }
 
